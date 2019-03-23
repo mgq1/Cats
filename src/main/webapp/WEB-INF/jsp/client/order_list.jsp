@@ -74,5 +74,8 @@
         <script src="${ctx}/js/clearmin.min.js"></script>
         <script src="${ctx}/js/summernote.min.js"></script>
         <script src="${ctx}/js/demo/notepad.js"></script>
+
+
+
     </body>
 </html>

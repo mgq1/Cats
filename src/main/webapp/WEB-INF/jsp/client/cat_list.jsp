@@ -49,7 +49,7 @@
                     <button class="btn btn-gray md-account-circle-white" data-toggle="dropdown"></button>
                     <ul class="dropdown-menu">
                         <li class="disabled text-center">
-                            <a style="cursor:default;"><strong>最帅的杨修生</strong></a>
+                            <a style="cursor:default;"><strong>${result.username}</strong></a>
                         </li>
                         <li class="divider"></li>
                         <li>

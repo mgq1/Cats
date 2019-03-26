@@ -1,6 +1,7 @@
 package com.black.service.impl;
 
 import com.black.mapper.UserMapper;
+import com.black.pojo.Result;
 import com.black.pojo.User;
 import com.black.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,16 @@ public class UserServiceimpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public User login(User user){
+    public Result login(User user){
+        Result result = new Result();
         List<User> users = userMapper.ByNamePwd(user);
         if (users != null && users.size() == 1){
-            return users.get(0);
+            result.setState(200);
+            result.setMessage("登陆成功");
+            result.setData(users.get(0));
+        }else{
+            result.setMessage("登陆失败");
         }
-        return null;
+        return result;
     }
 }

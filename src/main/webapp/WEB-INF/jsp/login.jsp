@@ -8,26 +8,7 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/css/roboto.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/css/font-awesome.min.css">
     <title>修の猫咖</title>
-    <script src="${ctx}/js/lib/jquery-2.1.3.min.js"/>
-    <script type="text/javascript">
-        function login() {
-            $.ajax({
-                url:"/user/login",
-                type:"post",
-                async:true,
-                cache:false,
-                data:{username:$("#username").val(),password:$("#password").val()},
-                dataType:"json",
-                success:function (data) {
-                    alert("登陆成功");
-                },
-                error:function (data) {
-                    console.log(data);
-                }
-            })
 
-        }
-    </script>
 </head>
 <body class="cm-login">
 
@@ -36,7 +17,7 @@
 </div>
 
 <div class="col-sm-6 col-md-4 col-lg-3" style="margin:40px auto; float:none;">
-    <form id="login_from">
+    <form id="login_from" method="post">
         <div class="col-xs-12">
             <div class="form-group">
                 <div class="input-group">
@@ -53,13 +34,44 @@
         </div>
         <div class="col-xs-6">
             <div class="checkbox"><label><input type="checkbox">记住我</label></div>
+            <a href="${ctx}/index">点我</a>
         </div>
         <div class="col-xs-6">
             <button type="button" onclick="login()" class="btn btn-block btn-gray" id="send">登陆</button>
         </div>
     </form>
 </div>
+<script src="${ctx}/js/lib/jquery-2.1.3.min.js"></script>
+<script type="text/javascript">
+    //请求成功后回调方法
+    function onSuccess(data) {
 
+        if (200 == data.state) {
+            alert("登陆成功");
+            window.location.href = "${ctx}/index";
+        }
+    }
+
+    function onError(msg) {
+        alert("登陆失败");
+    }
+
+    function login() {
+        var username = $("[name=username]").val();
+        var password = $("[name=password]").val();
+        $.ajax({
+            url: "/user/login",
+            type: "post",
+            async: true,
+            cache: false,
+            data: {username: username, password: password},
+            dataType: "json",
+            success: onSuccess,
+            error: onError
+        })
+
+    }
+</script>
 
 </body>
 

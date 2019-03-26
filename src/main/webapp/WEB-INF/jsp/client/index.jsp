@@ -47,7 +47,7 @@
                     <button class="btn btn-gray md-account-circle-white" data-toggle="dropdown"></button>
                     <ul class="dropdown-menu">
                         <li class="disabled text-center">
-                            <a style="cursor:default;"><strong>${user.username}</strong></a>
+                            <a style="cursor:default;"><strong>${result.data.username}</strong></a>
                         </li>
                         <li class="divider"></li>
                         <li>

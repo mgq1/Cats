@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -29,8 +30,13 @@ public class PageController {
     }
 
     @RequestMapping("/index")
-    public String index() {
-        return "client/index";
+    public String index(HttpSession session) {
+        if (session.getAttribute("result") != null){
+            return "client/index";
+        }else{
+            return "redirect:/";
+        }
+
     }
 
     @RequestMapping("/cat_list")

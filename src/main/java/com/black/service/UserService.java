@@ -1,5 +1,6 @@
 package com.black.service;
 
+import com.black.pojo.Result;
 import com.black.pojo.User;
 
 /**
@@ -7,5 +8,5 @@ import com.black.pojo.User;
  * @date 2019/3/17 15:32
  */
 public interface UserService {
-    User login(User user);
+    Result login(User user);
 }

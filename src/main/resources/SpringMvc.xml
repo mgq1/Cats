@@ -31,4 +31,34 @@
     </bean>
 
 
+    <!--避免ajax请求出现406错误-->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="false"/>
+        <property name="favorParameter" value="false"/>
+        <property name="ignoreAcceptHeader" value="false"/>
+        <property name="mediaTypes">
+            <value>
+                atom = application/atom+xml
+                html = text/html
+                json = application/json
+                * = */*
+            </value>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" >
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list><value>text/html;charset=UTF-8</value></list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+<!--
+    作者：w893932747
+    来源：CSDN
+    原文：https://blog.csdn.net/w893932747/article/details/80854175
+    版权声明：本文为博主原创文章，转载请附上博文链接！-->
+
 </beans>

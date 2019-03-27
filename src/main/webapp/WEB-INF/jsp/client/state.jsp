@@ -43,14 +43,14 @@
                     <button class="btn btn-gray md-account-circle-white" data-toggle="dropdown"></button>
                     <ul class="dropdown-menu">
                         <li class="disabled text-center">
-                            <a style="cursor:default;"><strong>最帅的杨修生</strong></a>
+                            <a style="cursor:default;"><strong>${result.data.username}</strong></a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> 个人信息</a>
                         </li>
                         <li>
-                            <a href="login.html"><i class="fa fa-fw fa-sign-out"></i>登出</a>
+                            <a href="/logout"><i class="fa fa-fw fa-sign-out"></i>登出</a>
                         </li>
                     </ul>
                 </div>

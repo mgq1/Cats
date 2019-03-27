@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface CatMapper {
     List<Cat> querryAll();
+    int update(Cat cat);
 }

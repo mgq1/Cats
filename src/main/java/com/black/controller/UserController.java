@@ -1,7 +1,9 @@
 package com.black.controller;
 
+import com.black.pojo.Cat;
 import com.black.pojo.Result;
 import com.black.pojo.User;
+import com.black.service.CatService;
 import com.black.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +22,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CatService catService;
+
 
     @RequestMapping("login")
     @ResponseBody
     public Result login(User user, HttpSession session) {
-        System.out.println(user.getUsername() + " " + user.getPassword());
         Result result = userService.login(user);
         if (200 == result.getState()) {
             //登陆成功
@@ -33,5 +37,13 @@ public class UserController {
         return result;
     }
 
+
+    //管理员更新猫咪
+    @RequestMapping("update")
+    @ResponseBody
+    public Result update(Cat cat){
+        Result result = catService.update(cat);
+        return result;
+    }
 
 }

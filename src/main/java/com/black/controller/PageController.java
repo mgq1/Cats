@@ -53,4 +53,11 @@ public class PageController {
         request.getSession().setAttribute("orders",orders);
         return "client/order_list";
     }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        //销毁session
+        session.invalidate();
+        return "redirect:/";
+    }
 }

@@ -1,6 +1,7 @@
 package com.black.service;
 
 import com.black.pojo.Cat;
+import com.black.pojo.Result;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ import java.util.List;
 
 public interface CatService {
     List<Cat> catList();
+    Result update(Cat cat);
 }

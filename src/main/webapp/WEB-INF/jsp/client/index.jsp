@@ -54,7 +54,7 @@
                             <a href="#"><i class="fa fa-fw fa-user"></i> 个人信息</a>
                         </li>
                         <li>
-                            <a href="login.html"><i class="fa fa-fw fa-sign-out"></i>登出</a>
+                            <a href="/logout"><i class="fa fa-fw fa-sign-out"></i>登出</a>
                         </li>
                     </ul>
                 </div>

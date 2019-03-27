@@ -49,14 +49,14 @@
                     <button class="btn btn-gray md-account-circle-white" data-toggle="dropdown"></button>
                     <ul class="dropdown-menu">
                         <li class="disabled text-center">
-                            <a style="cursor:default;"><strong>${result.username}</strong></a>
+                            <a style="cursor:default;"><strong>${result.data.username}</strong></a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> 个人信息</a>
                         </li>
                         <li>
-                            <a href="login.html"><i class="fa fa-fw fa-sign-out"></i>登出</a>
+                            <a href="/logout"><i class="fa fa-fw fa-sign-out"></i>登出</a>
                         </li>
                     </ul>
                 </div>
@@ -78,6 +78,7 @@
                                     <th >品种</th>
                                     <th >年龄</th>
                                     <th >生日</th>
+                                    <th >操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,6 +89,10 @@
                                         <td>${cat.getCvariety()}</td>
                                         <td>${cat.getCage()}</td>
                                         <td>${cat.getCbirthday()}</td>
+                                        <td>
+                                            <input type="button" class="btn1" onclick="opend(this)" value="修改"/>
+                                            <input type="button" class="btn2" id="" value="删除"/>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -96,11 +101,79 @@
                 </div>
             </div>
         </div>
+
+        <%--模态框--%>
+
+        <div class="modal fade" id="updatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel"
+                            style="color: black; text-align: left; font-size: 18px;">
+                            修改猫咪信息：</h4>
+                    </div>
+                    <div class="modal-body" style="color: black;text-align: center">
+                        编号：<input class="Catlist" id="id" type="text" value="" readonly="true" /><br /><br />
+                        名字：<input class="Catlist" id="name" type="text" value="" /><br /><br />
+                        品种：<input class="Catlist" id="variety" type="text" value="" /><br /><br />
+                        年龄：<input class="Catlist" id="age" type="text" value="" /><br /><br />
+                        生日：<input class="Catlist" id="birthday" type="text" value="" /><br />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-default" onclick="update()">提交更改</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+            ​​
+        </div>
+
         <script src="${ctx}/js/lib/jquery-2.1.3.min.js"></script>
-        <script src="${ctx}/js/jquery.mousewheel.min.js"></script>
-        <script src="${ctx}/js/jquery.cookie.min.js"></script>
-        <script src="${ctx}/js/fastclick.min.js"></script>
         <script src="${ctx}/js/bootstrap.min.js"></script>
-        <script src="${ctx}/js/clearmin.min.js"></script>
+        <script type="text/javascript">
+            function opend(obj) {
+                var tds = $(obj).parent().parent().find('td');
+                $("#id").val(tds.eq(0).text());
+                $("#name").val(tds.eq(1).text());
+                $("#variety").val(tds.eq(2).text());
+                $("#age").val(tds.eq(3).text());
+                $("#birthday").val(tds.eq(4).text());
+                $('#updatModal').modal({show:true})
+            }
+            <!-- 这个提交更改 -->
+            function update() {
+                var cid = $('#id').val();
+                var cname = $('#name').val();
+                var cvariety = $('#variety').val();
+                var cage = $('#age').val();
+                var cbirthday = $('#birthday').val();
+                alert(cid);
+                $.ajax({
+                    type:"post",
+                    url:"/user/update",
+                    async: true,
+                    cache: false,
+                    data: {cid:cid,cname:cname,cvariety:cvariety,cage:cage,cbirthday:cbirthday},
+                    dataType: "json",
+                    success: onSuccess,
+                    error: onError
+                })
+            }
+            
+            function onSuccess(data) {
+                if (200 == data.state) {
+                    alert(data.message);
+                    window.location.href = "${ctx}/cat_list";
+                }
+            }
+
+            function onError(data) {
+                alert("处理失败");
+            }
+        </script>
     </body>
 </html>

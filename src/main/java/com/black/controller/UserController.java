@@ -45,5 +45,12 @@ public class UserController {
         Result result = catService.update(cat);
         return result;
     }
+    //管理员删除猫咪
+    @RequestMapping("delete")
+    @ResponseBody
+    public Result delete(Cat cat){
+        Result result = catService.delete(cat);
+        return result;
+    }
 
 }

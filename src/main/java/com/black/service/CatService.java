@@ -11,6 +11,10 @@ import java.util.List;
  */
 
 public interface CatService {
+    //猫列表
     List<Cat> catList();
+    //更新猫
     Result update(Cat cat);
+    //删除猫
+    Result delete(Cat cat);
 }

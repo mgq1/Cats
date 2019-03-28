@@ -28,4 +28,13 @@
             </if>
         </where>
     </update>
+
+    <delete id="delete" parameterType="com.black.pojo.Cat">
+        delete from catlist
+        <where>
+            <if test="cid != null">
+                c_id = #{cid}
+            </if>
+        </where>
+    </delete>
 </mapper>

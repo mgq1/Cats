@@ -37,4 +37,18 @@ public class CatServiceimpl implements CatService {
         }
         return result;
     }
+
+    @Override
+    public Result delete(Cat cat){
+        int i = catMapper.delete(cat);
+        Result result = new Result();
+        if (i != 0){
+            result.setState(200);
+            result.setMessage("删除成功");
+        }else{
+            result.setState(200);
+            result.setMessage("删除失败");
+        }
+        return result;
+    }
 }

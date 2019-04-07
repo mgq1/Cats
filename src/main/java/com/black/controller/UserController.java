@@ -53,4 +53,11 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping("addcat")
+    @ResponseBody
+    public Result addcat(Cat cat){
+        Result result = catService.addcat(cat);
+        return result;
+    }
+
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.black.mapper.CatMapper" >
+<mapper namespace="com.black.mapper.CatMapper">
     <select id="querryAll" resultType="com.black.pojo.Cat">
         select c_id,c_name,c_variety,c_gender,c_age,c_state,c_birthday
         from catlist
@@ -9,18 +9,18 @@
     <update id="update" parameterType="com.black.pojo.Cat">
         update catlist
         <set>
-          <if test="cname != null">
-              c_name = #{cname},
-          </if>
-          <if test="cvariety != null">
-              c_variety = #{cvariety},
-          </if>
-          <if test="cgender != null">
-              c_gender = #{cgender},
-          </if>
-          <if test="cage != null">
-              c_age = #{cage}
-          </if>
+            <if test="cname != null">
+                c_name = #{cname},
+            </if>
+            <if test="cvariety != null">
+                c_variety = #{cvariety},
+            </if>
+            <if test="cgender != null">
+                c_gender = #{cgender},
+            </if>
+            <if test="cage != null">
+                c_age = #{cage}
+            </if>
         </set>
         <where>
             <if test="cid != null">
@@ -37,4 +37,53 @@
             </if>
         </where>
     </delete>
+    <insert id="add" parameterType="com.black.pojo.Cat">
+        insert into catlist
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cid != null">
+                c_id,
+            </if>
+            <if test="cname != null">
+                c_name,
+            </if>
+            <if test="cvariety != null">
+                c_variety,
+            </if>
+            <if test="cgender != null">
+                c_gender,
+            </if>
+            <if test="cage != null">
+                c_age,
+            </if>
+            <if test="cstate != null">
+                c_state,
+            </if>
+            <if test="cbirthday != null">
+                c_birthday,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cid != null">
+                #{cid},
+            </if>
+            <if test="cname != null">
+                #{cname},
+            </if>
+            <if test="cvariety != null">
+                #{cvariety},
+            </if>
+            <if test="cgender != null">
+                #{cgender},
+            </if>
+            <if test="cage != null">
+                #{cage},
+            </if>
+            <if test="cstate != null">
+                #{cstate},
+            </if>
+            <if test="cbirthday != null">
+                #{cbirthday},
+            </if>
+        </trim>
+    </insert>
 </mapper>

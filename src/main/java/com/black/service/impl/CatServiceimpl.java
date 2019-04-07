@@ -51,4 +51,18 @@ public class CatServiceimpl implements CatService {
         }
         return result;
     }
+    //添加猫咪
+    @Override
+    public Result addcat(Cat cat){
+        int i = catMapper.add(cat);
+        Result result = new Result();
+        if (i != 0){
+            result.setState(200);
+            result.setMessage("添加成功");
+        }else {
+            result.setState(200);
+            result.setMessage("添加失败");
+        }
+        return result;
+    }
 }

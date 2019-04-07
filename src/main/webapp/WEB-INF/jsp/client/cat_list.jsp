@@ -79,7 +79,10 @@
     </style>
     <div class="container-fluid">
         <div class="panel panel-default demo-icons">
-            <div class="panel-heading">猫咪列表</div>
+            <div class="panel-heading">
+                猫咪列表
+                <input type="button" data-toggle="modal" data-target="#addModal" value="添加" style="float: right"/>
+            </div>
             <div class="cattable">
                 <table class="table table-hover">
                     <thead>
@@ -87,6 +90,7 @@
                         <th>编号</th>
                         <th>名字</th>
                         <th>品种</th>
+                        <th>性别</th>
                         <th>年龄</th>
                         <th>生日</th>
                         <th>操作</th>
@@ -98,6 +102,7 @@
                             <td>${cat.getCid()}</td>
                             <td>${cat.getCname()}</td>
                             <td>${cat.getCvariety()}</td>
+                            <td>${cat.getCgender()}</td>
                             <td>${cat.getCage()}</td>
                             <td>${cat.getCbirthday()}</td>
                             <td>
@@ -113,7 +118,7 @@
     </div>
 </div>
 
-<%--模态框--%>
+<%--修改猫咪模态框--%>
 
 <div class="modal fade" id="updatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -130,6 +135,7 @@
                 编号：<input class="Catlist" id="id" type="text" value="" readonly="true"/><br/><br/>
                 名字：<input class="Catlist" id="name" type="text" value=""/><br/><br/>
                 品种：<input class="Catlist" id="variety" type="text" value=""/><br/><br/>
+                性别：<input class="Catlist" id="gender" type="text" value=""/><br/><br/>
                 年龄：<input class="Catlist" id="age" type="text" value=""/><br/><br/>
                 生日：<input class="Catlist" id="birthday" type="text" value=""/><br/>
             </div>
@@ -141,9 +147,35 @@
         <!-- /.modal-content -->
     </div>
     <!-- /.modal -->
-    ​​
 </div>
-
+<%--增加猫咪模态框--%>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel"
+                    style="color: black; text-align: left; font-size: 18px;">
+                    添加猫咪信息：</h4>
+            </div>
+            <div class="modal-body" style="color: black;text-align: center">
+                编号：<input class="Catlist" id="id" type="text" value="系统自定" readonly="true"/><br/><br/>
+                名字：<input class="Catlist" id="name" type="text" value=""/><br/><br/>
+                品种：<input class="Catlist" id="variety" type="text" value=""/><br/><br/>
+                性别：<input class="Catlist" id="gender" type="text" value=""/><br/><br/>
+                年龄：<input class="Catlist" id="age" type="text" value=""/><br/><br/>
+                生日：<input class="Catlist" id="birthday" type="date" value=""/><br/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-default" onclick="addcat()">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="${ctx}/js/lib/jquery-2.1.3.min.js"></script>
 <script src="${ctx}/js/bootstrap.min.js"></script>
 <script type="text/javascript">
@@ -152,8 +184,9 @@
         $("#id").val(tds.eq(0).text());
         $("#name").val(tds.eq(1).text());
         $("#variety").val(tds.eq(2).text());
-        $("#age").val(tds.eq(3).text());
-        $("#birthday").val(tds.eq(4).text());
+        $("#gender").val(tds.eq(3).text())
+        $("#age").val(tds.eq(4).text());
+        $("#birthday").val(tds.eq(5).text());
         $('#updatModal').modal({show: true})
     }
 
@@ -162,6 +195,7 @@
         var cid = $('#id').val();
         var cname = $('#name').val();
         var cvariety = $('#variety').val();
+        var cgender = $('#gender').val();
         var cage = $('#age').val();
         var cbirthday = $('#birthday').val();
         $.ajax({
@@ -169,7 +203,7 @@
             url: "/user/update",
             async: true,
             cache: false,
-            data: {cid: cid, cname: cname, cvariety: cvariety, cage: cage, cbirthday: cbirthday},
+            data: {cid: cid, cname: cname, cvariety: cvariety, cgender: cgender, cage: cage, cbirthday: cbirthday},
             dataType: "json",
             success: onSuccess,
             error: onError
@@ -196,6 +230,23 @@
 
     }
 
+    function addcat() {
+        var cname = $('#name').val();
+        var cvariety = $('#variety').val();
+        var cgender = $('#gender').val();
+        var cage = $('#age').val();
+        var cbirthday = $('#birthday').val();
+        $.ajax({
+            type: "post",
+            url: "/user/addcat",
+            async: true,
+            cache: false,
+            data: {cname: cname, cvariety: cvariety, cgender: cgender, cage: cage,cbirthday:cbirthday},
+            dataType: "json",
+            success: onSuccess,
+            error: onError
+        })
+    }
 
     function onSuccess(data) {
         if (200 == data.state) {

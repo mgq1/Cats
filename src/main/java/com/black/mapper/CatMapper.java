@@ -15,4 +15,6 @@ public interface CatMapper {
     int update(Cat cat);
     //删除猫
     int delete(Cat cat);
+    //添加猫
+    int add(Cat cat);
 }

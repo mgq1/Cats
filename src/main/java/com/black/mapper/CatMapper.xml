@@ -19,7 +19,10 @@
                 c_gender = #{cgender},
             </if>
             <if test="cage != null">
-                c_age = #{cage}
+                c_age = #{cage},
+            </if>
+            <if test="cbirthday != null">
+                c_birthday = #{cbirthday}
             </if>
         </set>
         <where>
@@ -43,45 +46,45 @@
             <if test="cid != null">
                 c_id,
             </if>
-            <if test="cname != null">
+            <if test="cname != null and cname != ''">
                 c_name,
             </if>
-            <if test="cvariety != null">
+            <if test="cvariety != null and cname != ''">
                 c_variety,
             </if>
-            <if test="cgender != null">
+            <if test="cgender != null and cname != ''">
                 c_gender,
             </if>
-            <if test="cage != null">
+            <if test="cage != null and cname != ''">
                 c_age,
             </if>
-            <if test="cstate != null">
+            <if test="cstate != null and cname != ''">
                 c_state,
             </if>
-            <if test="cbirthday != null">
+            <if test="cbirthday != null and cname != ''">
                 c_birthday,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="cid != null">
+            <if test="cid != null and cname != ''">
                 #{cid},
             </if>
-            <if test="cname != null">
+            <if test="cname != null and cname != ''">
                 #{cname},
             </if>
-            <if test="cvariety != null">
+            <if test="cvariety != null and cname != ''">
                 #{cvariety},
             </if>
-            <if test="cgender != null">
+            <if test="cgender != null and cname != ''">
                 #{cgender},
             </if>
-            <if test="cage != null">
+            <if test="cage != null and cname != ''">
                 #{cage},
             </if>
-            <if test="cstate != null">
+            <if test="cstate != null and cname != ''">
                 #{cstate},
             </if>
-            <if test="cbirthday != null">
+            <if test="cbirthday != null and cname != ''">
                 #{cbirthday},
             </if>
         </trim>

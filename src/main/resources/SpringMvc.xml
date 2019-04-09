@@ -60,5 +60,16 @@
     来源：CSDN
     原文：https://blog.csdn.net/w893932747/article/details/80854175
     版权声明：本文为博主原创文章，转载请附上博文链接！-->
+    <!-- 配置注解驱动 -->
+    <mvc:annotation-driven conversion-service="conversionService" />
+    <!-- 转换器配置 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.black.utils.DateConverter" />
+            </list>
+        </property>
+    </bean>
+
 
 </beans>

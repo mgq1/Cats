@@ -1,5 +1,7 @@
 package com.black.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -13,6 +15,7 @@ public class Cat {
     private String cgender;
     private String cage;
     private Integer cstate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date cbirthday;
 
 
@@ -70,5 +73,12 @@ public class Cat {
 
     public void setCbirthday(Date cbirthday) {
         this.cbirthday = cbirthday;
+    }
+
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "cbirthday=" + cbirthday +
+                '}';
     }
 }

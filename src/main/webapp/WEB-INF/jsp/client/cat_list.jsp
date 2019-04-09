@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,7 +82,7 @@
         <div class="panel panel-default demo-icons">
             <div class="panel-heading">
                 猫咪列表
-                <input type="button" data-toggle="modal" data-target="#addModal" value="添加" style="float: right"/>
+                <input type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal" value="添加" style="float: right"/>
             </div>
             <div class="cattable">
                 <table class="table table-hover">
@@ -104,10 +105,10 @@
                             <td>${cat.getCvariety()}</td>
                             <td>${cat.getCgender()}</td>
                             <td>${cat.getCage()}</td>
-                            <td>${cat.getCbirthday()}</td>
+                            <td><fmt:formatDate value="${cat.getCbirthday()}"/></td>
                             <td>
-                                <input type="button" class="btn1" onclick="opend(this)" value="修改"/>
-                                <input type="button" class="btn2" onclick="deletecat(this) " id="" value="删除"/>
+                                <input type="button" class="btn btn-success" onclick="opend(this)" value="修改"/>
+                                <input type="button" class="btn btn-danger" onclick="deletecat(this) " id="" value="删除"/>
                             </td>
                         </tr>
                     </c:forEach>
@@ -137,7 +138,7 @@
                 品种：<input class="Catlist" id="variety" type="text" value=""/><br/><br/>
                 性别：<input class="Catlist" id="gender" type="text" value=""/><br/><br/>
                 年龄：<input class="Catlist" id="age" type="text" value=""/><br/><br/>
-                生日：<input class="Catlist" id="birthday" type="text" value=""/><br/>
+                生日：<input class="Catlist" id="birthday" type="date" value=""/><br/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -162,12 +163,12 @@
                     添加猫咪信息：</h4>
             </div>
             <div class="modal-body" style="color: black;text-align: center">
-                编号：<input class="Catlist" id="id" type="text" value="系统自定" readonly="true"/><br/><br/>
-                名字：<input class="Catlist" id="name" type="text" value=""/><br/><br/>
-                品种：<input class="Catlist" id="variety" type="text" value=""/><br/><br/>
-                性别：<input class="Catlist" id="gender" type="text" value=""/><br/><br/>
-                年龄：<input class="Catlist" id="age" type="text" value=""/><br/><br/>
-                生日：<input class="Catlist" id="birthday" type="date" value=""/><br/>
+                编号：<input id="cid" type="text" value="系统自定" readonly="true"/><br/><br/>
+                名字：<input id="cname" type="text" value=""/><br/><br/>
+                品种：<input id="cvariety" type="text" value=""/><br/><br/>
+                性别：<input id="cgender" type="text" value=""/><br/><br/>
+                年龄：<input id="cage" type="text" value=""/><br/><br/>
+                生日：<input id="cbirthday" type="date" value=""/><br/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -198,6 +199,7 @@
         var cgender = $('#gender').val();
         var cage = $('#age').val();
         var cbirthday = $('#birthday').val();
+        alert(cbirthday);
         $.ajax({
             type: "post",
             url: "/user/update",
@@ -231,11 +233,12 @@
     }
 
     function addcat() {
-        var cname = $('#name').val();
-        var cvariety = $('#variety').val();
-        var cgender = $('#gender').val();
-        var cage = $('#age').val();
-        var cbirthday = $('#birthday').val();
+        var cname = $('#cname').val();
+        var cvariety = $('#cvariety').val();
+        var cgender = $('#cgender').val();
+        var cage = $('#cage').val();
+        var cbirthday = $('#cbirthday').val();
+        alert(cbirthday);
         $.ajax({
             type: "post",
             url: "/user/addcat",

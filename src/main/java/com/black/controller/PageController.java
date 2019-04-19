@@ -58,6 +58,7 @@ public class PageController {
     public String logout(HttpSession session){
         //销毁session
         session.invalidate();
+        //重定向到登陆页面
         return "redirect:/";
     }
 }

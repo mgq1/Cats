@@ -29,7 +29,7 @@
                                 <a class="sf-cat" href="/cat_list">猫咪</a>
                             </li>
                             <li  class="active"><a href="/order_list" class="sf-notepad">订单</a></li>
-                            <li><a href="login.html" class="sf-lock-open">退出系统</a></li>
+                            <li><a href="/logout" class="sf-lock-open">退出系统</a></li>
                         </ul>
                     </div>
                 </div>

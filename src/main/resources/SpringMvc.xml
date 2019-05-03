@@ -60,8 +60,7 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/"/>
+            <mvc:mapping path="/admin/**"/>
             <bean class="com.black.utils.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

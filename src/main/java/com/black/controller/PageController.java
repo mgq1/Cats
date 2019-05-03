@@ -2,11 +2,15 @@ package com.black.controller;
 
 import com.black.pojo.Cat;
 import com.black.pojo.Order;
+import com.black.pojo.Result;
+import com.black.pojo.User;
 import com.black.service.CatService;
 import com.black.service.OrderService;
+import com.black.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,46 +23,22 @@ import java.util.List;
 @Controller
 public class PageController {
     @Autowired
-    CatService catService;
-
-    @Autowired
-    OrderService orderService;
+    private UserService userService;
     //跳转主页
     @RequestMapping("/")
     public String login(){
         return "login";
     }
 
-    @RequestMapping("/index")
-    public String index(HttpSession session) {
-        if (session.getAttribute("result") != null){
-            return "client/index";
-        }else{
-            return "redirect:/";
+    //登陆
+    @RequestMapping("login")
+    @ResponseBody
+    public Result login(User user, HttpSession session) {
+        Result result = userService.login(user);
+        if (200 == result.getState()) {
+            //登陆成功
+            session.setAttribute("result",result);
         }
-
-    }
-
-    @RequestMapping("/cat_list")
-    public String cat_list(HttpServletRequest request) {
-        List<Cat> cats = catService.catList();
-        request.getSession().setAttribute("cats", cats);
-        return "client/cat_list";
-
-    }
-
-    @RequestMapping("/order_list")
-    public String order_list(HttpServletRequest request) {
-        List<Order> orders = orderService.orderList();
-        request.getSession().setAttribute("orders",orders);
-        return "client/order_list";
-    }
-
-    @RequestMapping("/logout")
-    public String logout(HttpSession session){
-        //销毁session
-        session.invalidate();
-        //重定向到登陆页面
-        return "redirect:/";
+        return result;
     }
 }

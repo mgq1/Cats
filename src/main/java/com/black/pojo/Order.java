@@ -9,12 +9,13 @@ import java.util.Date;
 public class Order {
     private Integer oid;
     private Integer cid;
-    private String name;
-    private String phone;
-    private String address;
-    private int state;
-    private Date time;
+    private String oname;
+    private String ophone;
+    private String oaddress;
+    private int ostate;
+    private Date otime;
 
+    private Cat cat;
 
     public Integer getOid() {
         return oid;
@@ -32,43 +33,51 @@ public class Order {
         this.cid = cid;
     }
 
-    public String getName() {
-        return name;
+    public String getOname() {
+        return oname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOname(String oname) {
+        this.oname = oname;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getOphone() {
+        return ophone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setOphone(String ophone) {
+        this.ophone = ophone;
     }
 
-    public String getAddress() {
-        return address;
+    public String getOaddress() {
+        return oaddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setOaddress(String oaddress) {
+        this.oaddress = oaddress;
     }
 
-    public int getState() {
-        return state;
+    public int getOstate() {
+        return ostate;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setOstate(int ostate) {
+        this.ostate = ostate;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getOtime() {
+        return otime;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setOtime(Date otime) {
+        this.otime = otime;
+    }
+
+    public Cat getCat() {
+        return cat;
+    }
+
+    public void setCat(Cat cat) {
+        this.cat = cat;
     }
 }

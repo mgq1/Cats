@@ -90,5 +90,26 @@ public class UserController {
         Result result = catService.addcat(cat);
         return result;
     }
+    //更新订单
+    @RequestMapping("updataorder")
+    @ResponseBody
+    public Result updataorder(Order order){
+        Result result = orderService.updataorder(order);
+        return result;
+    }
+    //删除订单
+    @RequestMapping("deleteorder")
+    @ResponseBody
+    public Result deleteorder(Order order){
+        Result result = orderService.deleteorder(order);
+        return result;
+    }
 
+    //添加订单
+    @RequestMapping("addorder")
+    @ResponseBody
+    public Result addorder(Order order){
+        Result result = orderService.addorder(order);
+        return result;
+    }
 }

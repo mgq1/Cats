@@ -17,4 +17,6 @@ public interface CatMapper {
     int delete(Cat cat);
     //添加猫
     int add(Cat cat);
+
+    int querryByCname(String cname);
 }

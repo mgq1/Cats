@@ -17,6 +17,6 @@ public interface CatService {
     Result update(Cat cat);
     //删除猫
     Result delete(Cat cat);
-
+    //添加猫
     Result addcat(Cat cat);
 }

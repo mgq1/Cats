@@ -89,4 +89,8 @@
             </if>
         </trim>
     </insert>
+
+    <select id="querryByCname" resultType="com.black.pojo.Cat">
+        select c_id from catlist where c_name = #{cname}
+    </select>
 </mapper>

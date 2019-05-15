@@ -1,8 +1,109 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.black.mapper.OrderMapper" >
-    <select id="querryAll" resultType="com.black.pojo.Order">
-        select *
-        from orders
+    <resultMap id="OrderMap" type="com.black.pojo.Order">
+        <id property="oid" column="o_id"/>
+        <result property="oname" column="o_name"/>
+        <result property="ophone" column="o_phone"/>
+        <result property="oaddress" column="o_address"/>
+        <result property="ostate" column="o_state"/>
+        <result property="otime" column="o_time"/>
+        <association property="cat" javaType="com.black.pojo.Cat">
+            <id property="cid" column="c_id"/>
+            <result property="cname" column="c_name"/>
+            <result property="cvariety" column="c_variety"/>
+            <result property="cgender" column="c_gender"/>
+            <result property="cage" column="c_age"/>
+            <result property="cstate" column="c_state"/>
+            <result property="cbirthday" column="c_birthday"/>
+        </association>
+    </resultMap>
+
+    <select id="querryAll" resultMap="OrderMap">
+        SELECT * FROM orders inner join catlist on orders.cat_id = catlist.c_id;
     </select>
+
+
+    <update id="updataorder" parameterType="com.black.pojo.Order">
+        update orders
+        <set>
+            <if test="cid != null">
+                c_id = #{cid},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="address != null">
+                address = #{address}
+            </if>
+        </set>
+        <where>
+            <if test="oid != null">
+                o_id = #{oid}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteorder" parameterType="com.black.pojo.Order">
+        delete from orders
+        <where>
+            <if test="oid != null">
+                o_id = #{oid}
+            </if>
+        </where>
+    </delete>
+    <insert id="addorder" parameterType="com.black.pojo.Order">
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                o_id,
+            </if>
+            <if test="cid != null">
+                c_id,
+            </if>
+            <if test="cname != null">
+                c_name,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                #{oid},
+            </if>
+            <if test="cid != null">
+                #{cid},
+            </if>
+            <if test="cname != null">
+                #{cname},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="phone != null">
+                #{phone},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="time != null">
+                #{time},
+            </if>
+        </trim>
+    </insert>
+
+
 </mapper>

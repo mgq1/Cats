@@ -19,4 +19,6 @@ public interface CatService {
     Result delete(Cat cat);
     //添加猫
     Result addcat(Cat cat);
+    //状态为0的猫咪
+    List<Cat> statusCats();
 }

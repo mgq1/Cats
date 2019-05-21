@@ -164,11 +164,11 @@
     <!-- Core plugin JavaScript-->
     <script src="${ctx}/static/vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Page level plugin JavaScript-->
-    <script src="${ctx}/static/vendor/chart.js/Chart.min.js"></script>
+    <%--<script src="${ctx}/static/vendor/chart.js/Chart.min.js"></script>--%>
     <!-- Custom scripts for all pages-->
     <script src="${ctx}/static/js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="${ctx}/static/js/sb-admin-charts.min.js"></script>
+    <%--<script src="${ctx}/static/js/sb-admin-charts.min.js"></script>--%>
   </div>
   <%--修改订单模态框--%>
   <div class="modal fade" id="updatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -183,12 +183,22 @@
           </button>
         </div>
         <div class="modal-body" style="color: black;text-align: center">
-          编号：<input class="Catlist" id="oid" type="text" value="" readonly="true"/><br/><br/>
-          客户名：<input class="Catlist" id="name" type="text" value=""/><br/><br/>
-          手机：<input class="Catlist" id="phone" type="text" value=""/><br/><br/>
-          地址：<input class="Catlist" id="address" type="text" value=""/><br/><br/>
-          猫：<input class="Catlist" id="cname" type="text" value=""/><br/><br/>
-          时间：<input class="Catlist" id="time" type="date" value=""/><br/>
+          编&nbsp;&nbsp;&nbsp;&nbsp;号：<input class="Orderlist" id="oid" type="text" value="" readonly="true"/><br/><br/>
+          客户名：<input class="Orderlist" id="oname" type="text" value=""/><br/><br/>
+          手&nbsp;&nbsp;&nbsp;&nbsp;机：<input class="Orderlist" id="ophone" type="text" value=""/><br/><br/>
+          地&nbsp;&nbsp;&nbsp;&nbsp;址：<input class="Orderlist" id="oaddress" type="text" value=""/><br/><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;猫&nbsp;&nbsp;&nbsp;&nbsp;：
+          <select id="catid">
+            <option value="0" selected="selected">
+                不修改
+            </option>
+            <c:forEach items="${sessionScope.cats}" var="cat">
+              <option value="${cat.getCid()}">${cat.getCname()}</option>
+            </c:forEach>
+          </select>
+          <%--<input class="Orderlist" id="cname" type="text" value=""/>--%>
+          <br/><br/>
+          时&nbsp;&nbsp;&nbsp;&nbsp;间：<input class="Orderlist" id="otime" type="date" value=""/><br/>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -200,7 +210,6 @@
     <!-- /.modal -->
   </div>
 
-  <%--增加猫咪模态框--%>
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
        data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
@@ -215,12 +224,17 @@
 
         </div>
         <div class="modal-body" style="color: black;text-align: center">
-          编号：<input id="oid" type="text" value="系统自定" readonly="true"/><br/><br/>
-          客户名：<input id="name" type="text" value=""/><br/><br/>
-          手机：<input id="phone" type="text" value=""/><br/><br/>
-          地址：<input id="address" type="text" value=""/><br/><br/>
-          猫：<input id="cname" type="text" value=""/><br/><br/>
-          时间：<input id="time" type="date" value=""/><br/>
+          编&nbsp;&nbsp;&nbsp;&nbsp;号：<input id="oid" type="text" value="系统自定" readonly="true"/><br/><br/>
+          客户名：<input id="oname" type="text" value=""/><br/><br/>
+          手&nbsp;&nbsp;&nbsp;&nbsp;机：<input id="ophone" type="text" value=""/><br/><br/>
+          地&nbsp;&nbsp;&nbsp;&nbsp;址：<input id="oaddress" type="text" value=""/><br/><br/>
+          <%--猫：<input id="cname" type="text" value=""/><br/><br/>--%>
+          &nbsp;&nbsp;猫&nbsp;&nbsp;&nbsp;&nbsp;： <select id="catid">
+                <c:forEach items="${sessionScope.cats}" var="cat">
+                  <option value="${cat.getCid()}">${cat.getCname()}</option>
+                </c:forEach>
+              </select><br/><br/>
+          时&nbsp;&nbsp;&nbsp;&nbsp;间：<input id="otime" type="date" value=""/><br/>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -234,27 +248,27 @@
     function getorder(obj) {
       var tds = $(obj).parent().parent().find('td');
       $("#oid").val(tds.eq(0).text());
-      $("#name").val(tds.eq(1).text());
-      $("#phone").val(tds.eq(2).text());
-      $("#address").val(tds.eq(3).text())
-      $("#cname").val(tds.eq(4).text());
-      $("#time").val(tds.eq(5).text());
+      $("#oname").val(tds.eq(1).text());
+      $("#ophone").val(tds.eq(2).text());
+      $("#oaddress").val(tds.eq(3).text())
+      $("#catid").val(tds.eq(4).text());
+      $("#otime").val(tds.eq(5).text());
       $('#updatModal').modal({show: true})
     }
     <!-- 这个提交更改 -->
     function updataorder() {
       var oid = $('#oid').val();
-      var name = $('#name').val();
-      var phone = $('#phone').val();
-      var address = $('#address').val();
-      var cname = $('#cname').val();
-      var time = $('#time').val();
+      var oname = $('#oname').val();
+      var ophone = $('#ophone').val();
+      var oaddress = $('#oaddress').val();
+      var catid = $('#catid').val();
+      var otime = $('#otime').val();
       $.ajax({
         type: "post",
         url: "/admin/updataorder",
         async: true,
         cache: false,
-        data: {oid: oid, name: name, phone: phone, address: address, cname: cname, time: time},
+        data: {oid: oid, oname: oname, catid: catid,ophone: ophone, oaddress: oaddress, otime: otime},
         dataType: "json",
         success: onSuccess,
         error: onError
@@ -279,17 +293,17 @@
       }
     }
     function addorder() {
-      var name = $('#name').val();
-      var phone = $('#phone').val();
-      var address = $('#address').val();
-      var cname = $('#cname').val();
-      var time = $('#time').val();
+      var oname = $('#oname').val();
+      var ophone = $('#ophone').val();
+      var oaddress = $('#oaddress').val();
+      var catid = $('#catid').val();
+      var otime = $('#otime').val();
       $.ajax({
         type: "post",
         url: "/admin/addorder",
         async: true,
         cache: false,
-        data: {cname: cname, cvariety: cvariety, cgender: cgender, cage: cage,cbirthday:cbirthday},
+        data: {oname: oname, ophone: ophone, oaddress: oaddress, catid: catid,otime: otime},
         dataType: "json",
         success: onSuccess,
         error: onError

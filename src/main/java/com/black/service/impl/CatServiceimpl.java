@@ -65,4 +65,10 @@ public class CatServiceimpl implements CatService {
         }
         return result;
     }
+
+    @Override
+    public List<Cat> statusCats(){
+        List<Cat> cats = catMapper.querrystatusCats();
+        return cats;
+    }
 }

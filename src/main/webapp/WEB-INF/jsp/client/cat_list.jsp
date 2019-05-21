@@ -267,7 +267,6 @@
       var cgender = $('#gender').val();
       var cage = $('#age').val();
       var cbirthday = $('#birthday').val();
-      alert(cbirthday);
       $.ajax({
         type: "post",
         url: "/admin/update",

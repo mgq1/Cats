@@ -5,6 +5,7 @@ import com.black.mapper.OrderMapper;
 import com.black.pojo.Order;
 import com.black.pojo.Result;
 import com.black.service.OrderService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,11 @@ public class OrderServiceimpl implements OrderService {
     //更新订单
     @Override
     public Result updataorder(Order order) {
+        if (order.getCatid() != 0){
+            Order temp = orderMapper.querry(order);
+            catMapper.freedcat(temp.getCatid());
+            catMapper.lockingcat(order.getCatid());
+        }
         int i = orderMapper.updataorder(order);
         Result result = new Result();
         if (i != 0){
@@ -44,6 +50,8 @@ public class OrderServiceimpl implements OrderService {
     //删除订单
     @Override
     public Result deleteorder(Order order) {
+        Order temp = orderMapper.querry(order);
+        catMapper.freedcat(temp.getCatid());
         int i = orderMapper.deleteorder(order);
         Result result = new Result();
         if (i != 0){
@@ -59,6 +67,7 @@ public class OrderServiceimpl implements OrderService {
     @Override
     public Result addorder(Order order) {
         int i = orderMapper.addorder(order);
+        catMapper.lockingcat(order.getCatid());
         Result result = new Result();
         if (i != 0){
             result.setState(200);

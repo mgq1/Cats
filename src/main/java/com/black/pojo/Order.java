@@ -1,5 +1,7 @@
 package com.black.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -8,11 +10,12 @@ import java.util.Date;
  */
 public class Order {
     private Integer oid;
-    private Integer cid;
+    private Integer catid;
     private String oname;
     private String ophone;
     private String oaddress;
     private int ostate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date otime;
 
     private Cat cat;
@@ -25,12 +28,12 @@ public class Order {
         this.oid = oid;
     }
 
-    public Integer getCid() {
-        return cid;
+    public Integer getCatid() {
+        return catid;
     }
 
-    public void setCid(Integer cid) {
-        this.cid = cid;
+    public void setCatid(Integer catid) {
+        this.catid = catid;
     }
 
     public String getOname() {
@@ -79,5 +82,19 @@ public class Order {
 
     public void setCat(Cat cat) {
         this.cat = cat;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "oid=" + oid +
+                ", catid=" + catid +
+                ", oname='" + oname + '\'' +
+                ", ophone='" + ophone + '\'' +
+                ", oaddress='" + oaddress + '\'' +
+                ", ostate=" + ostate +
+                ", otime=" + otime +
+                ", cat=" + cat.toString() +
+                '}';
     }
 }

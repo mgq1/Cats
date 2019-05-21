@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.black.mapper.CatMapper">
+    <select id="querryAll" resultType="com.black.pojo.Cat">
+        select c_id,c_name,c_variety,c_gender,c_age,c_state,c_birthday
+        from catlist
+    </select>
+
+    <update id="update" parameterType="com.black.pojo.Cat">
+        update catlist
+        <set>
+            <if test="cname != null">
+                c_name = #{cname},
+            </if>
+            <if test="cvariety != null">
+                c_variety = #{cvariety},
+            </if>
+            <if test="cgender != null">
+                c_gender = #{cgender},
+            </if>
+            <if test="cage != null">
+                c_age = #{cage},
+            </if>
+            <if test="cbirthday != null">
+                c_birthday = #{cbirthday}
+            </if>
+        </set>
+        <where>
+            <if test="cid != null">
+                c_id = #{cid}
+            </if>
+        </where>
+    </update>
+
+    <delete id="delete" parameterType="com.black.pojo.Cat">
+        delete from catlist
+        <where>
+            <if test="cid != null">
+                c_id = #{cid}
+            </if>
+        </where>
+    </delete>
+    <insert id="add" parameterType="com.black.pojo.Cat">
+        insert into catlist
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cid != null">
+                c_id,
+            </if>
+            <if test="cname != null and cname != ''">
+                c_name,
+            </if>
+            <if test="cvariety != null and cname != ''">
+                c_variety,
+            </if>
+            <if test="cgender != null and cname != ''">
+                c_gender,
+            </if>
+            <if test="cage != null and cname != ''">
+                c_age,
+            </if>
+            <if test="cstate != null and cname != ''">
+                c_state,
+            </if>
+            <if test="cbirthday != null and cname != ''">
+                c_birthday,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cid != null and cname != ''">
+                #{cid},
+            </if>
+            <if test="cname != null and cname != ''">
+                #{cname},
+            </if>
+            <if test="cvariety != null and cname != ''">
+                #{cvariety},
+            </if>
+            <if test="cgender != null and cname != ''">
+                #{cgender},
+            </if>
+            <if test="cage != null and cname != ''">
+                #{cage},
+            </if>
+            <if test="cstate != null and cname != ''">
+                #{cstate},
+            </if>
+            <if test="cbirthday != null and cname != ''">
+                #{cbirthday},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="querrystatusCats" resultType="com.black.pojo.Cat">
+        select c_id,c_name from catlist where c_state = 0
+    </select>
+
+    <update id="freedcat" keyProperty="com.black.pojo.Cat">
+        update catlist set c_state = '0' where c_id = #{cid}
+    </update>
+
+    <update id="lockingcat" keyProperty="com.black.pojo.Cat">
+        update catlist set c_state = '1' where c_id = #{cid}
+    </update>
+</mapper>
